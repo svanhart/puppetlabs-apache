@@ -19,6 +19,7 @@ class apache::mod::security (
   $error_anomaly_score        = '4',
   $warning_anomaly_score      = '3',
   $notice_anomaly_score       = '2',
+  $modsec_secrequestbodylimit = $::apache::params::modsec_secrequestbodylimit,
 ) inherits ::apache::params {
   include ::apache
 
