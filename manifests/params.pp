@@ -286,6 +286,8 @@ class apache::params inherits ::apache::version {
     $secpcrematchlimitrecursion = 1500
     $modsec_secruleengine = 'On'
     $modsec_secrequestbodylimit = 13107200
+    $modsec_secrequestbodynofileslimit = 131072
+    $modsec_secrequestinmemorybodylimit = 131072
     $modsec_default_rules = [
       'base_rules/modsecurity_35_bad_robots.data',
       'base_rules/modsecurity_35_scanners.data',
@@ -308,6 +310,7 @@ class apache::params inherits ::apache::version {
       'base_rules/modsecurity_crs_59_outbound_blocking.conf',
       'base_rules/modsecurity_crs_60_correlation.conf',
     ]
+    $modsec_secdebugloglevel = 0
     $alias_icons_path     = '/usr/share/apache2/icons'
     $error_documents_path = '/usr/share/apache2/error'
     if ($::operatingsystem == 'Ubuntu' and versioncmp($::operatingsystemrelease, '13.10') >= 0) or ($::operatingsystem == 'Debian' and versioncmp($::operatingsystemrelease, '8') >= 0) {

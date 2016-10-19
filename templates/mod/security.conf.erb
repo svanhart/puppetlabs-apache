@@ -5,8 +5,8 @@
     SecRule REQUEST_HEADERS:Content-Type "text/xml" \
       "id:'200000',phase:1,t:none,t:lowercase,pass,nolog,ctl:requestBodyProcessor=XML"
     SecRequestBodyLimit <%= modsec_secrequestbodylimit %>
-    SecRequestBodyNoFilesLimit 131072
-    SecRequestBodyInMemoryLimit 131072
+    SecRequestBodyNoFilesLimit <%= modsec_secrequestbodynofileslimit %>
+    SecRequestBodyInMemoryLimit <%= modsec_secrequestinmemorybodylimit %>
     SecRequestBodyLimitAction Reject
     SecRule REQBODY_ERROR "!@eq 0" \
       "id:'200001', phase:2,t:none,log,deny,status:400,msg:'Failed to parse request body.',logdata:'%{reqbody_error_msg}',severity:2"
@@ -41,7 +41,7 @@
     SecResponseBodyMimeType text/plain text/html text/xml
     SecResponseBodyLimit 524288
     SecResponseBodyLimitAction ProcessPartial
-    SecDebugLogLevel 0
+    SecDebugLogLevel <%= modsec_secdebugloglevel %>
     SecAuditEngine RelevantOnly
     SecAuditLogRelevantStatus "<%= @audit_log_relevant_status %>"
     SecAuditLogParts <%= @audit_log_parts %>
