@@ -47,7 +47,15 @@ class apache::params inherits ::apache::version {
 
   $vhost_include_pattern = '*'
 
-  $modsec_audit_log_parts = 'ABIJDEFHZ'
+  $modsec_audit_log_parts             = 'ABIJDEFHZ'
+  $modsec_secauditlogtype             = 'Serial'
+  $modsec_secruleengine               = 'On'
+  $modsec_secrequestbodylimit         = 13107200
+  $modsec_secrequestbodynofileslimit  = 131072
+  $modsec_secrequestinmemorybodylimit = 131072
+  $modsec_secdebugloglevel            = 0
+  $modsec_auditengine                 = 'RelevantOnly'
+    
 
   if ($::operatingsystem == 'Ubuntu' and $::lsbdistrelease == '10.04') or ($::operatingsystem == 'SLES') {
     $verify_command = '/usr/sbin/apache2ctl -t'
@@ -167,10 +175,9 @@ class apache::params inherits ::apache::version {
     $modsec_crs_package   = 'mod_security_crs'
     $modsec_crs_path      = '/usr/lib/modsecurity.d'
     $modsec_dir           = '/etc/httpd/modsecurity.d'
+    $modsec_log           = '/var/log/httpd/modsecurity'
     $secpcrematchlimit = 1500
     $secpcrematchlimitrecursion = 1500
-    $modsec_secruleengine = 'On'
-    $modsec_secrequestbodylimit = 13107200
     $modsec_default_rules = [
       'base_rules/modsecurity_35_bad_robots.data',
       'base_rules/modsecurity_35_scanners.data',
@@ -282,12 +289,9 @@ class apache::params inherits ::apache::version {
     $modsec_crs_package   = 'modsecurity-crs'
     $modsec_crs_path      = '/usr/share/modsecurity-crs'
     $modsec_dir           = '/etc/modsecurity'
+    $modsec_log           = '/var/log/apache2/modsecurity'
     $secpcrematchlimit = 1500
     $secpcrematchlimitrecursion = 1500
-    $modsec_secruleengine = 'On'
-    $modsec_secrequestbodylimit = 13107200
-    $modsec_secrequestbodynofileslimit = 131072
-    $modsec_secrequestinmemorybodylimit = 131072
     $modsec_default_rules = [
       'base_rules/modsecurity_35_bad_robots.data',
       'base_rules/modsecurity_35_scanners.data',
@@ -310,7 +314,6 @@ class apache::params inherits ::apache::version {
       'base_rules/modsecurity_crs_59_outbound_blocking.conf',
       'base_rules/modsecurity_crs_60_correlation.conf',
     ]
-    $modsec_secdebugloglevel = 0
     $alias_icons_path     = '/usr/share/apache2/icons'
     $error_documents_path = '/usr/share/apache2/error'
     if ($::operatingsystem == 'Ubuntu' and versioncmp($::operatingsystemrelease, '13.10') >= 0) or ($::operatingsystem == 'Debian' and versioncmp($::operatingsystemrelease, '8') >= 0) {
@@ -531,9 +534,9 @@ class apache::params inherits ::apache::version {
     $modsec_crs_path      = undef
     $modsec_default_rules = undef
     $modsec_dir           = '/etc/apache2/modsecurity'
+    $modsec_log           = '/var/log/apache2/modsecurity'
     $secpcrematchlimit = 1500
     $secpcrematchlimitrecursion = 1500
-    $modsec_secruleengine = 'On'
     $error_log           = 'error.log'
     $scriptalias         = '/usr/lib/cgi-bin'
     $access_log_file     = 'access.log'

@@ -21,6 +21,10 @@ class apache::mod::security (
   $notice_anomaly_score       = '2',
   $modsec_secrequestbodylimit = $::apache::params::modsec_secrequestbodylimit,
   $modsec_secdebugloglevel    = $::apache::params::modsec_secdebugloglevel,
+  $modsec_auditengine         = $::apache::params::modsec_auditengine,
+  $modsec_secauditlogtype     = $::apache::params::modsec_secauditlogtype,
+  $modsec_log                 = $::apache::params::modsec_log
+
 ) inherits ::apache::params {
   include ::apache
 
@@ -99,6 +103,25 @@ class apache::mod::security (
     notify  => Class['apache::service'],
   }
 
+  file { "${modsec_dir}/audit_log":
+    ensure  => directory,
+    owner   => $::apache::params::user,
+    group   => $::apache::params::group,
+    mode    => '0755',
+    purge   => true,
+    force   => true,
+    recurse => true,
+    notify  => Class['apache::service'],
+  }
+  
+  file { $modsec_log:
+    ensure  => directory,
+    owner   => $::apache::params::user,
+    group   => $::apache::params::group,
+    mode    => '0755',
+    notify  => Class['apache::service'],
+  }
+  
   # Template uses:
   # - $_secdefaultaction
   # - $critical_anomaly_score
