@@ -1,11 +1,13 @@
 class apache::mod::security (
-  $logroot                    = $::apache::params::logroot,
+  $logroot                     = $::apache::params::logroot,
   $crs_package                 = $::apache::params::modsec_crs_package,
   $activated_rules             = $::apache::params::modsec_default_rules,
   $modsec_dir                  = $::apache::params::modsec_dir,
   $modsec_secruleengine        = $::apache::params::modsec_secruleengine,
+  $secauditengine              = 'RelevantOnly',
   $audit_log_relevant_status   = '^(?:5|4(?!04))',
   $audit_log_parts             = $::apache::params::modsec_audit_log_parts,
+  $secauditlogtype             = 'Serial',
   $secpcrematchlimit           = $::apache::params::secpcrematchlimit,
   $secpcrematchlimitrecursion  = $::apache::params::secpcrematchlimitrecursion,
   $allowed_methods             = 'GET HEAD POST OPTIONS',
@@ -24,6 +26,7 @@ class apache::mod::security (
   $secrequestbodylimit         = '13107200',
   $secrequestbodynofileslimit  = '131072',
   $secrequestbodyinmemorylimit = '131072',
+  $secdebugloglevel            = '0',
 ) inherits ::apache::params {
   include ::apache
 

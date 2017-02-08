@@ -44,7 +44,7 @@
   <%- end -%>
   <%- if proxy['reverse_urls'].nil? -%>
   ProxyPassReverse <%= proxy['path'] %> <%= proxy['url'] %>
-  <%- else -%>
+  <%- elsif proxy['reverse_urls'] -%>
     <%- Array(proxy['reverse_urls']).each do |reverse_url| -%>
   ProxyPassReverse <%= proxy['path'] %> <%= reverse_url %>
     <%- end -%>

@@ -41,11 +41,12 @@
     SecResponseBodyMimeType text/plain text/html text/xml
     SecResponseBodyLimit 524288
     SecResponseBodyLimitAction ProcessPartial
-    SecDebugLogLevel 0
-    SecAuditEngine RelevantOnly
+    SecDebugLogLevel <%= @secdebugloglevel %>
+    SecAuditEngine <%= @secauditengine %>
     SecAuditLogRelevantStatus "<%= @audit_log_relevant_status %>"
     SecAuditLogParts <%= @audit_log_parts %>
-    SecAuditLogType Serial
+    SecAuditLogType <%= @secauditlogtype %>
+    SecAuditLogStorageDir <%= @logroot %>
     SecArgumentSeparator &
     SecCookieFormat 0
 <%- if scope.lookupvar('::osfamily') == 'Debian' -%>
